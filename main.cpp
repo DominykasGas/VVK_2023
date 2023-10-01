@@ -8,29 +8,6 @@ struct Studentas {
     double vidurkis;
 };
 
-double skaiciuotiGalutiniVidurki(const Studentas& studentas) {
-    double ndVidurkis = 0.0;
-    for (int pazymys : studentas.nd) {
-        ndVidurkis += pazymys;
-    }
-    ndVidurkis /= studentas.nd.size();
-    return 0.4 * ndVidurkis + 0.6 * studentas.egzaminas;
-}
-
-double skaiciuotiGalutiniMediana(const Studentas& studentas) {
-    vector<int> pazymiai = studentas.nd;
-    pazymiai.push_back(studentas.egzaminas);
-    sort(pazymiai.begin(), pazymiai.end());
-
-    if (pazymiai.size() % 2 == 0) {
-        int vidurinis1 = pazymiai[pazymiai.size() / 2 - 1];
-        int vidurinis2 = pazymiai[pazymiai.size() / 2];
-        return 0.3 * (vidurinis1 + vidurinis2) / 2.0 + 0.7 * studentas.egzaminas;
-    }
-    else {
-        return 0.3 * pazymiai[pazymiai.size() / 2] + 0.7 * studentas.egzaminas;
-    }
-}
 int main() {
 	cout << "Kaip skaiciuoti galutini? v/m";
 	cin >> skaiciavimo_Strategija;
@@ -81,7 +58,7 @@ int main() {
 
 failas.close();
 cout << ""<<endl;
-cout << left << setw(12) << "Pavarde" << setw(12) << "Vardas" << setw(20) << "Galutinis (Vid.)" << setw(20) << "Galutinis (Med.)" << endl;cout << std::setfill('-') << setw(64) << "" << std::setfill(' ') << endl;
+cout << left << setw(12) << "Vardas" << setw(12) << "Pavarde" << setw(20) << "Galutinis (Vid.)" << setw(20) << "Galutinis (Med.)" << endl;cout << std::setfill('-') << setw(64) << "" << std::setfill(' ') << endl;
 cout << fixed << setprecision(2);
 for (const Studentas& student : studentai) {
     cout << setw(12) << student.pavarde << setw(12) << student.vardas << setw(20) << student.vidurkis << setw(20) << student.vidurkis << endl;

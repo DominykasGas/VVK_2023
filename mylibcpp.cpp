@@ -69,4 +69,3 @@ studentas::studentas() {
 		return size % 2 == 0 ? (vec[vid] + vec[vid - 1]) / 2.0 : vec[vid] / 1.0;
 
 	}
-	

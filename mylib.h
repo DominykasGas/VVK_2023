@@ -9,6 +9,7 @@
 #include <algorithm>
 #include <sstream>
 #include <fstream>
+#include <stdexcept>
 using std::cout;
 using std::string;
 using std::cin;
@@ -24,6 +25,7 @@ using std::domain_error;
 using std::sort;
 using std::getline;
 using std::ifstream;
+using std::exception;
 
 extern char skaiciavimo_Strategija;
 class studentas {
@@ -53,6 +55,30 @@ public:
 	void rezVid();
 	void rezMed();
 	double mediana(vector<int> vec);
+	friend std::istream& operator>>(std::istream& in, studentas& a) {
+		in >> a.vard;
+		in >> a.pav;
+		for (int i = 0;i < 5;i++) {
+			int k;
+			in >> k;
+			a.paz.push_back(k);
+		}
+		in >> a.egz;
+		skaiciavimo_Strategija == 'm' ? a.rezMed() : a.rezVid();
+		return in;
+	}
+	friend std::ostream& operator<<(std::ostream& out, const studentas& a) {
+		out << a.vard << "; " << a.pav << ";";
+		for (auto& i : a.paz) out << i << ": ";
+		out << a.egz << endl;
+		return out;
+	}
 
 };
-
+struct Studentas {
+	string pavarde;
+	string vardas;
+	vector<int> nd;
+	int egzaminas;
+	double vidurkis;
+};

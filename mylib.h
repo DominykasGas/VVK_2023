@@ -10,6 +10,7 @@
 #include <sstream>
 #include <fstream>
 #include <stdexcept>
+#include <chrono>
 using std::cout;
 using std::string;
 using std::cin;
@@ -66,3 +67,4 @@ struct Studentas {
 	int egzaminas;
 	double vidurkis;
 };
+

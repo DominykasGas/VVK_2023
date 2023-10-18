@@ -11,6 +11,8 @@
 #include <fstream>
 #include <stdexcept>
 #include <chrono>
+#include<list>
+#include<deque>
 using std::cout;
 using std::string;
 using std::cin;
@@ -27,6 +29,8 @@ using std::sort;
 using std::getline;
 using std::ifstream;
 using std::exception;
+using std::list;
+using std::deque;
 
 extern char skaiciavimo_Strategija;
 class studentas {

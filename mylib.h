@@ -13,6 +13,7 @@
 #include <chrono>
 #include<list>
 #include<deque>
+#include<random>
 using std::cout;
 using std::string;
 using std::cin;
@@ -31,6 +32,8 @@ using std::ifstream;
 using std::exception;
 using std::list;
 using std::deque;
+using std::uniform_int_distribution;
+using std::sort;
 
 extern char skaiciavimo_Strategija;
 class studentas {
@@ -57,8 +60,9 @@ public:
 	}
 	void printas();
 	void printasRez();
-	void rezVid();
-	void rezMed();
+	float rezVid();
+	float rezMed();
+	void Rezult(char skaiciavimo_Strategija);
 	double mediana(vector<int> vec);
 	friend std::istream& operator>>(std::istream& in, studentas& a);
 	friend std::ostream& operator<<(std::ostream& out, const studentas& a);
@@ -69,6 +73,27 @@ struct Studentas {
 	string vardas;
 	vector<int> nd;
 	int egzaminas;
+	float Rez;
 	double vidurkis;
-};
 
+public:
+	Studentas();
+	Studentas(string v, string p, vector<int>pp, int e);
+	Studentas(const Studentas& A);
+	Studentas& operator=(const Studentas& A);
+	~Studentas();
+	float Vid();
+	float Med();
+	void Rezultatas(char skaiciavimo_Strategija);
+	inline void SetName(string N) { vardas = N; }
+	inline void SetSurname(string S) { pavarde = S; }
+	inline void SetHW(vector <int> Vec) { nd = Vec; }
+	inline void SetExam(int n) { egzaminas = n; }
+	float GetRez()const { return Rez; }
+	void printass();
+	friend std::ostream& operator<<(std::ostream& os, const Studentas& A);
+	friend std::istream& operator>>(std::istream& in, Studentas& a);
+	bool operator<(Studentas& B);
+
+};
+bool maziauVid(const Studentas& A, const Studentas& B);

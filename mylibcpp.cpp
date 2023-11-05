@@ -51,13 +51,17 @@ studentas::studentas() {
 		printf("|%-10s|%20s|", vard.c_str(), pav.c_str());
 		printf("%10f|\n", rez);
 	}
-	void studentas::rezVid() {
-		float sum = std::accumulate(paz.begin(), paz.end(), 0.0);
-		rez = sum / paz.size() * 0.4 + egz * 0.6;
+	float studentas::rezVid() {
+		return std::accumulate(paz.begin(), paz.end(), 0.0) / paz.size() * 0.4 + egz * 0.6;
+		 
 	}
-	void studentas::rezMed() {
-		rez = mediana(paz) * 0.4 + egz * 0.6;
+	float studentas::rezMed() {
+		return rez = mediana(paz) * 0.4 + egz * 0.6;
 
+	}
+	void studentas::Rezult(char skaiciavimo_Strategija) {
+		if (skaiciavimo_Strategija == 'v') { rez = 0.4 * rezVid() + 0.6 * egz; }
+		else { rez = 0.4 * rezMed() + 0.6 * egz; }
 	}
 	double studentas::mediana(vector<int> vec) {
 		typedef vector<double>::size_type vecsize;
@@ -83,7 +87,110 @@ studentas::studentas() {
 	}
 	std::ostream& operator<<(std::ostream& out, const studentas& a) {
 		out << a.vard << "; " << a.pav << ";";
-		for (auto& i : a.paz) out << i << ": ";
+		for (auto& i : a.paz) cout << i << ": ";
 		out << a.egz << endl;
 		return out;
 	}
+
+
+
+
+	Studentas::Studentas() {
+		vardas = "";
+		pavarde = "";
+		nd = {};
+		egzaminas = 0;
+		Rez = 0.0;
+		}
+
+	Studentas::Studentas(string N, string S, vector<int> H, int E) {
+		vardas = N;
+		pavarde = S;
+		nd = H;
+		egzaminas = E;
+		Rezultatas('v');
+	}
+
+	Studentas::Studentas(const Studentas& A) {
+		vardas = A.vardas;
+		pavarde = A.pavarde;
+		nd = A.nd;
+		egzaminas = A.egzaminas;
+		Rez = A.Rez;
+		
+	}
+
+	Studentas& Studentas::operator=(const Studentas& A) {
+		if (this == &A)
+			return *this;
+		vardas = A.vardas;
+		pavarde = A.pavarde;
+		nd = A.nd;
+		egzaminas = A.egzaminas;
+		Rez = A.Rez;
+		return *this;
+	}
+
+	Studentas::~Studentas() {
+		vardas.clear();
+		pavarde.clear();
+		nd.clear();
+		egzaminas = 0;
+		Rez = 0;
+	}
+
+
+	float Studentas::Vid() {
+		return (accumulate(nd.begin(), nd.end(), 0.0) / (nd.size() * 1.0));
+
+	}
+	float Studentas::Med() {
+		int n = nd.size() / 2;
+		return
+			(n % 2 == 1) ? nd[n] / 1.0 : (nd[n] + nd[n + 1]) / 2.0;
+	}
+
+	void Studentas::Rezultatas(char skaiciavimo_Strategija) {
+		if (skaiciavimo_Strategija == 't') {
+			Rez = 0.4 * Vid() + 0.6 * egzaminas;
+		}
+		else {
+			Rez = 0.4 * Med() + 0.6 * egzaminas;
+		}
+	}
+	void Studentas::printass(){
+		cout << vardas << " ; " << pavarde << " | ";
+		for (auto& i : nd) cout << i << " | ";
+		cout << egzaminas << " | ";
+		cout << "Rezultatas: " << Rez << endl;
+	}
+	bool Studentas::operator<(Studentas& B)
+	{
+		return this->Rez < B.GetRez();
+	}
+	
+	std::ostream& operator<<(std::ostream& os, const Studentas& A) {
+		os << A.vardas << " ; " << A.pavarde << " | ";
+		for (auto& i : A.nd) os << i << " | ";
+		os << A.egzaminas << " | ";
+		os << " Rezultatas = " << A.Rez << endl;
+		return os;
+	}
+	std::istream& operator>>(std::istream& in, Studentas& a) { 
+		in >> a.vardas;
+		in >> a.pavarde;
+		a.nd.clear();
+		for (int i = 0; i < 5; i++) {
+			int k;
+			in >> k; a.nd.push_back(k);
+		}
+		in >> a.egzaminas;
+		a.Rezultatas('v');
+		return in;
+	}
+	bool maziauVid(const Studentas& A, const Studentas& B) {
+		return A.GetRez() < B.GetRez();
+	}
+	
+	
+
